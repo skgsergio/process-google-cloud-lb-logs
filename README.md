@@ -24,6 +24,7 @@ Quick'n'dirty environment for processing Google Cloud LB logs.
 
 ```bash
 go run parse.go /path/to/logs/*.json
+docker-compose up -d
 ./load_data.sh
 ./top25.sh
 ```
