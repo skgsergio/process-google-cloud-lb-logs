@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - ch-server
+    environment:
+      GF_INSTALL_PLUGINS: vertamedia-clickhouse-datasource
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      CH_HOST: ch-server
+      CH_PORT: 8123
+    ports:
+      - 3000:3000
+    volumes:
+      - "./grafana-clickhouse-ds.yml:/etc/grafana/provisioning/datasources/clickhouse.yml"
+
+  ch-server:
+    image: yandex/clickhouse-server
